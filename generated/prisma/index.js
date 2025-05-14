@@ -169,7 +169,7 @@ const config = {
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
-    "rootEnvPath": "../../.env",
+    "rootEnvPath": null,
     "schemaEnvPath": "../../.env"
   },
   "relativePath": "../../prisma",
@@ -188,8 +188,8 @@ const config = {
       }
     }
   },
-  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\n\ngenerator client {\n  provider = \"prisma-client-js\"\n  output   = \"../generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel Acao {\n  id      BigInt @id @default(autoincrement())\n  simbolo String @unique\n  nome    String\n\n  // Relacionamento com Carteira\n  carteiras Carteira[]\n}\n\nmodel Carteira {\n  id           BigInt    @id @default(autoincrement())\n  usuarioId    BigInt?\n  acaoId       BigInt?\n  quantidade   Int\n  precoMedio   Float\n  atualizadoEm DateTime? @default(now())\n\n  // Relações (se os modelos Usuario e Acao existirem)\n  usuario Usuario? @relation(fields: [usuarioId], references: [id], onDelete: Cascade)\n  acao    Acao?    @relation(fields: [acaoId], references: [id], onDelete: Cascade)\n}\n\nmodel Usuario {\n  id           BigInt    @id @default(autoincrement())\n  nomeCompleto String    @map(\"nome_completo\")\n  cpf          String    @unique\n  telefone     String?\n  usuario      String    @unique\n  email        String    @unique\n  senha        String\n  criadoEm     DateTime? @default(now()) @map(\"criado_em\")\n\n  // Relacionamento com Carteira\n  carteiras Carteira[]\n}\n",
-  "inlineSchemaHash": "6beba96a604e74301285f2ac7270abaa12d55bdca0920bc2fafae8d4c4ea9f37",
+  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\n\ngenerator client {\n  provider = \"prisma-client-js\"\n  output   = \"../generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel Acao {\n  id        BigInt     @id @default(autoincrement())\n  simbolo   String     @unique\n  nome      String\n  carteiras Carteira[]\n}\n\nmodel Carteira {\n  id           BigInt    @id @default(autoincrement())\n  usuarioId    BigInt?\n  acaoId       BigInt?\n  quantidade   Int\n  precoMedio   Float\n  atualizadoEm DateTime? @default(now())\n\n  // Relações (se os modelos Usuario e Acao existirem)\n  usuario Usuario? @relation(fields: [usuarioId], references: [id], onDelete: Cascade)\n  acao    Acao?    @relation(fields: [acaoId], references: [id], onDelete: Cascade)\n}\n\nmodel Usuario {\n  id           BigInt    @id @default(autoincrement())\n  nomeCompleto String    @map(\"nome_completo\")\n  cpf          String    @unique\n  telefone     String?\n  usuario      String    @unique\n  email        String    @unique\n  senha        String\n  criadoEm     DateTime? @default(now()) @map(\"criado_em\")\n\n  // Relacionamento com Carteira\n  carteiras Carteira[]\n}\n",
+  "inlineSchemaHash": "c0f5d36e92e26d2e2a986ce064cc3bff4645698e693a8dc718bd4d4782182f76",
   "copyEngine": true
 }
 

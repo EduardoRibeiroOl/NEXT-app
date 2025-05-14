@@ -1,46 +1,33 @@
-import prisma from "../lib/prisma"
-
-
-function Home(){
-    return 
-        <div>
-        </div>
-}
- 
-export default Home
-
-/*exemplo de carteira
-
 // pages/index.js
 import prisma from '../lib/prisma'
 
 export async function getServerSideProps() {
-  const carteiras = await prisma.carteira.findMany({
-    include: {
-      usuario: true,
-      acao: true,
-    },
-  })
+  const acoes = await prisma.acao.findMany()
+
+  // Serializa BigInt como string
+  const acoesSerialized = acoes.map((acao) => ({
+    ...acao,
+    id: acao.id.toString(),
+  }))
 
   return {
-    props: { carteiras },
+    props: {
+      acoes: acoesSerialized,
+    },
   }
 }
 
-export default function Home({ carteiras }) {
+export default function Home({ acoes }) {
   return (
-    <div style={{ padding: '2rem', color: 'white', background: '#111' }}>
-      <h1>Carteiras</h1>
+    <div>
+      <h1>Ações</h1>
       <ul>
-        {carteiras.map((c) => (
-          <li key={c.id}>
-            <strong>{c.usuario?.nomeCompleto}</strong> tem{' '}
-            <strong>{c.quantidade}</strong> ações de{' '}
-            <strong>{c.acao?.simbolo}</strong> a R${c.precoMedio.toFixed(2)}
+        {acoes.map((acao) => (
+          <li key={acao.id}>
+            {acao.simbolo} - {acao.nome}
           </li>
         ))}
       </ul>
     </div>
   )
 }
-*/ 

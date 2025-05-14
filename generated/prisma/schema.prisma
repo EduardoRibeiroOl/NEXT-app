@@ -15,11 +15,9 @@ datasource db {
 }
 
 model Acao {
-  id      BigInt @id @default(autoincrement())
-  simbolo String @unique
-  nome    String
-
-  // Relacionamento com Carteira
+  id        BigInt     @id @default(autoincrement())
+  simbolo   String     @unique
+  nome      String
   carteiras Carteira[]
 }
 
